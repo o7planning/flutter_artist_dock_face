@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 import '../flutter_artist_dock_face.dart';
 import 'helper/responsive_helper.dart';
@@ -120,15 +121,23 @@ abstract class DockFaceScreen extends StatelessWidget {
     final bool isMobile = ResponsiveHelper.isMobile(context);
     final DockFaceStyle effectiveStyle = _resolveStyle(context);
 
+    Widget? endDrawerWidget = _buildEndDrawerWrapper(context);
+    Widget? finalEndDrawer = endDrawerWidget == null
+        ? null
+        : PointerInterceptor(intercepting: true, child: endDrawerWidget);
+
     return Scaffold(
       backgroundColor: effectiveStyle.scaffoldBackground,
       drawer: isMobile
-          ? _internalBuildDockMenu(
-              context: context,
-              dockFaceStyle: effectiveStyle,
+          ? PointerInterceptor(
+              intercepting: true,
+              child: _internalBuildDockMenu(
+                context: context,
+                dockFaceStyle: effectiveStyle,
+              ),
             )
           : null,
-      endDrawer: _buildEndDrawerWrapper(context),
+      endDrawer: finalEndDrawer,
       onDrawerChanged: onDrawerChanged,
       onEndDrawerChanged: onEndDrawerChanged,
       body: Builder(
