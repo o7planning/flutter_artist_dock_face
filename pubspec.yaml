@@ -1,6 +1,6 @@
 name: flutter_artist_dock_face
 description: An independent, high-performance, compact full-screen page layout featuring a fixed, non-expandable navigation dock without a topbar.
-version: 0.9.3
+version: 0.9.4
 resolution: workspace
 homepage: https://o7planning.github.io
 
